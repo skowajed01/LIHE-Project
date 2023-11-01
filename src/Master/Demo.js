@@ -101,7 +101,7 @@ class Demo extends Component {
                         </div>
                         <div>
                             <div className='flex-btn'>
-                                <Button variant="contained" color="primary" onClick={this.handleclick} >
+                                <Button variant="contained" color="success" onClick={this.handleclick} >
                                     Submit
                                 </Button>
                             </div>
