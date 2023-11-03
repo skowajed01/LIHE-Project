@@ -4,6 +4,8 @@ import { lazy } from 'react';
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 import Demo from 'Master/Demo';
+import CountryMaster from 'Master/CountryMaster';
+import ViewCountryMaster from 'Master/ViewCountryMaster';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
@@ -42,6 +44,14 @@ const MainRoutes = {
         {
           path: 'Demo',
           element: <Demo/>
+        },
+        {
+          path: 'CountryMaster',
+          element: <CountryMaster/>
+        },
+        {
+          path: 'ViewCountryMaster',
+          element: <ViewCountryMaster/>
         }
       ]
     },

@@ -64,40 +64,6 @@ class Demo extends Component {
                             <div className='flex-cnt'>
                                 <TextField value={state.Age} onChange={this.handlechange} fullWidth label="Age" name='Age' size='small' variant="standard" />
                             </div>
-                            {/* <TextField
-                                label="First Name"
-                                variant="standard"
-                                value={state.UserName} onChange={this.handlechange}
-                            />
-                            <TextField
-                               label="Middle Name"
-                               variant="standard"
-                               value={state.Age} onChange={this.handlechange}
-                            />
-                            <TextField
-                                label="Last Name"
-                                variant="standard"
-                            />
-                            <TextField
-                               id="standard-required"
-                               label="Email Id"
-                               variant="standard"
-                            />
-                            <TextField
-                               id="standard-required"
-                               label="Mobile No"
-                               variant="standard"
-                            />
-                            <TextField
-                                id="standard-required"
-                                label="Address"
-                                variant="standard"
-                            />
-                            <TextField
-                              id="standard-required"
-                              label="Pin"
-                              variant="standard"
-                            /> */}
                         </div>
                         <div>
                             <div className='flex-btn'>

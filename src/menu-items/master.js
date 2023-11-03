@@ -22,6 +22,13 @@ const Master = {
             type: 'item',
             url: '/Master/Demo',
             target: true
+          },
+          {
+            id: 'CountryMaster',
+            title: 'Country Master',
+            type: 'item',
+            url: '/Master/CountryMaster',
+            target: true
           }
         ]
       }

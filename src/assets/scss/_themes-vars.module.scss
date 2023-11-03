@@ -1,4 +1,18 @@
-
+a.vwlist:link {color:#ff0000;}
+a.vwlist:visited {color:#ffffff;}
+a.vwlist:hover {color:#ffcc00;}
+a.vwlist:hover {background-color:white}
+a.vwlist{
+  font-size: 20px;
+  border: 2px solid hsl(199, 91%, 45%);;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: hsl(199, 91%, 45%);
+}
 .box{
   margin-left: 30px;
   margin-bottom: 30px;
