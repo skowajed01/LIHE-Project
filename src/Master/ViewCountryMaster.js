@@ -1,6 +1,6 @@
 import DataTable from "layout/DataTable/DataTable";
 import React, { useEffect } from "react";
-import AllServices from "services/AllServices";
+//import AllServices from "services/AllServices";
 
 const columns = [
   {
@@ -57,30 +57,57 @@ const columns = [
 //     callingcode: "61",
 //   },
 // ];
-var countryLists;
-var service = new AllServices();
+var countryLists=[
+    
+        {
+          "transid": "31247fbd-5096-41ad-931c-c5b485b2634c",
+          "countryname": "Malaysia",
+          "currency": "MYR",
+          "nationalityname": "Malaysian",
+          "callingcode": "61",
+          "rco": "",
+          "rcm": "2023-11-04T09:21:32.2391221",
+          "luo": "",
+          "lum": null,
+          "sts": 0,
+          "delstatus": 0
+        }
+      
+];
+//var service = new AllServices();
 const ViewCountryMaster = () => {
   useEffect(() => {
     console.log("fetching api");
     GetCountryList();
-  });
+  },[]);
 
-  const GetCountryList = () => {
-    service
-      .ViewCountryList()
-      .then((data) => {
-        countryLists = data;
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const GetCountryList = async() => {
+
+    const res =await fetch({
+        method:"Get",
+        url:"http://localhost:5012/api/Master/GetDetails"
+    })
+    const data= await res.json();
+    console.log(data);
+    countryLists=data;
+    console.log(countryLists)
+    // service
+    //   .ViewCountryList()
+    //   .then((data) => {
+    //     countryLists = data;
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
-  var countryList = [];
+  var countryList = [
+  ];
 
   countryLists.forEach((elements, index, array) => {
     var item = {};
+    item.id=index+1;
     item.countryname = elements.countryname;
     item.currency = elements.currency;
     item.nationalityname = elements.nationalityname;
