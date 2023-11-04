@@ -10,4 +10,8 @@ export default class AllServices {
         console.log("data :", data, "Url :", configuration.PostCountrymast)
         return axios.post(configuration.PostCountrymast, data, false)
     }
+    ViewCountryList(){
+        console.log("Url :",configuration.ViewCountry)
+        return axios.get(configuration.ViewCountry,false)
+    }
 }

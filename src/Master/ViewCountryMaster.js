@@ -1,6 +1,6 @@
 import DataTable from "layout/DataTable/DataTable";
 import React from "react";
-
+import AllServices from "services/AllServices";
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
@@ -196,6 +196,19 @@ const userRows = [
 ];
 
 const ViewCountryMaster = () => {
+  // componentWillUnmount() {
+  //     console.log("Component will mounting");
+  //     this.GetCountryList();
+  // }
+
+  // GetCountryList() {
+  //     services.ViewCountryList().then((data) => {
+  //         console.log(data)
+  //     }).catch((error) => {
+  //         console.log(error)
+  //     })
+  // }
+
   return (
     <>
       <div className="users">
