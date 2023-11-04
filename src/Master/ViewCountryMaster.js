@@ -81,6 +81,7 @@ const ViewCountryMaster = () => {
 
   countryLists.forEach((elements, index, array) => {
     var item = {};
+    item.id = index;
     item.countryname = elements.countryname;
     item.currency = elements.currency;
     item.nationalityname = elements.nationalityname;
