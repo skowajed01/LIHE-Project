@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
-import '../assets/scss/_themes-vars.module.scss'
-
+//import '../assets/scss/_themes-vars.module.scss'
+import '../assets/scss/master.scss'
 import AllServices from 'services/AllServices';
 
 const services = new AllServices();
