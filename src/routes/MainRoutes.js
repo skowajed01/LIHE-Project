@@ -1,110 +1,123 @@
-import { lazy } from 'react';
+import { lazy } from "react";
 
 // project imports
-import MainLayout from 'layout/MainLayout';
-import Loadable from 'ui-component/Loadable';
-import Demo from 'Master/Demo';
-import CountryMaster from 'Master/CountryMaster';
-import ViewCountryMaster from 'Master/ViewCountryMaster';
+import MainLayout from "layout/MainLayout";
+import Loadable from "ui-component/Loadable";
+import Demo from "Master/Demo";
+import CountryMaster from "Master/CountryMaster";
+import ViewCountryMaster from "Master/ViewCountryMaster";
+import ModelPopUp from "layout/ModelPopUp/ModePopUp";
 // dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
+const DashboardDefault = Loadable(
+  lazy(() => import("views/dashboard/Default"))
+);
 
 // utilities routing
-const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
-const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
-const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
-const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
-const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
+const UtilsTypography = Loadable(
+  lazy(() => import("views/utilities/Typography"))
+);
+const UtilsColor = Loadable(lazy(() => import("views/utilities/Color")));
+const UtilsShadow = Loadable(lazy(() => import("views/utilities/Shadow")));
+const UtilsMaterialIcons = Loadable(
+  lazy(() => import("views/utilities/MaterialIcons"))
+);
+const UtilsTablerIcons = Loadable(
+  lazy(() => import("views/utilities/TablerIcons"))
+);
 
 // sample page routing
-const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+const SamplePage = Loadable(lazy(() => import("views/sample-page")));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-  path: '/',
+  path: "/",
   element: <MainLayout />,
   children: [
     {
-      path: '/',
-      element: <DashboardDefault />
+      path: "/",
+      element: <DashboardDefault />,
     },
     {
-      path: 'dashboard',
+      path: "dashboard",
       children: [
         {
-          path: 'default',
-          element: <DashboardDefault />
-        }
-      ]
+          path: "default",
+          element: <DashboardDefault />,
+        },
+      ],
     },
     {
-      path: 'Master',
+      path: "Master",
       children: [
         {
-          path: 'Demo',
-          element: <Demo/>
+          path: "Demo",
+          element: <Demo />,
         },
         {
-          path: 'CountryMaster',
-          element: <CountryMaster/>
+          path: "CountryMaster",
+          element: <CountryMaster />,
         },
         {
-          path: 'ViewCountryMaster',
-          element: <ViewCountryMaster/>
-        }
-      ]
+          path: "ViewCountryMaster",
+          element: <ViewCountryMaster />,
+        },
+        {
+          path: "popup",
+          element: <ModelPopUp />,
+        },
+      ],
     },
     {
-      path: 'utils',
+      path: "utils",
       children: [
         {
-          path: 'util-typography',
-          element: <UtilsTypography />
-        }
-      ]
+          path: "util-typography",
+          element: <UtilsTypography />,
+        },
+      ],
     },
     {
-      path: 'utils',
+      path: "utils",
       children: [
         {
-          path: 'util-color',
-          element: <UtilsColor />
-        }
-      ]
+          path: "util-color",
+          element: <UtilsColor />,
+        },
+      ],
     },
     {
-      path: 'utils',
+      path: "utils",
       children: [
         {
-          path: 'util-shadow',
-          element: <UtilsShadow />
-        }
-      ]
+          path: "util-shadow",
+          element: <UtilsShadow />,
+        },
+      ],
     },
     {
-      path: 'icons',
+      path: "icons",
       children: [
         {
-          path: 'tabler-icons',
-          element: <UtilsTablerIcons />
-        }
-      ]
+          path: "tabler-icons",
+          element: <UtilsTablerIcons />,
+        },
+      ],
     },
     {
-      path: 'icons',
+      path: "icons",
       children: [
         {
-          path: 'material-icons',
-          element: <UtilsMaterialIcons />
-        }
-      ]
+          path: "material-icons",
+          element: <UtilsMaterialIcons />,
+        },
+      ],
     },
     {
-      path: 'sample-page',
-      element: <SamplePage />
-    }
-  ]
+      path: "sample-page",
+      element: <SamplePage />,
+    },
+  ],
 };
 
 export default MainRoutes;

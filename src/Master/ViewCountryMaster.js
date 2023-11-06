@@ -1,5 +1,8 @@
+import { Backdrop, CircularProgress, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import DataTable from "layout/DataTable/DataTable";
 import React, { useEffect, useState } from "react";
+
 //import AllServices from "services/AllServices";
 
 const columns = [
@@ -48,19 +51,11 @@ const columns = [
   //   },
 ];
 
-// const userRows = [
-//   {
-//     id: "1",
-//     countryname: "Malaysia",
-//     currency: "MYR",
-//     nationalityname: "Malaysian",
-//     callingcode: "61",
-//   },
-// ];
 var countryLists = [];
 //var service = new AllServices();
 const ViewCountryMaster = () => {
   const [isLoading, setisLoding] = useState();
+  const [isError, setisError] = useState(null);
   useEffect(() => {
     console.log("fetching api");
 
@@ -68,17 +63,22 @@ const ViewCountryMaster = () => {
   }, []);
 
   const GetCountryList = async () => {
-    setisLoding(true);
-    const response = await fetch(
-      "http://localhost:5012/api/Master/GetDetails",
-      { method: "Get" }
-    );
-    console.log(response);
-    const data = await response.json();
-    console.log(data);
-    countryLists = data;
-    setisLoding(false);
-    console.log(countryLists);
+    try {
+      setisLoding(true);
+      const response = await fetch(
+        "http://localhost:5012/api/Master/GetDetails",
+        { method: "Get" }
+      );
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+      countryLists = data;
+      setisLoding(false);
+      console.log(countryLists);
+    } catch (error) {
+      setisLoding(false);
+      setisError(error.message);
+    }
     // service
     //   .ViewCountryList()
     //   .then((data) => {
@@ -95,6 +95,7 @@ const ViewCountryMaster = () => {
   countryLists.forEach((elements, index, array) => {
     var item = {};
     item.id = index + 1;
+    item.transId = elements.transid;
     item.countryname = elements.countryname;
     item.currency = elements.currency;
     item.nationalityname = elements.nationalityname;
@@ -105,7 +106,21 @@ const ViewCountryMaster = () => {
   return (
     <>
       {isLoading ? (
-        <div>Loding</div>
+        <Backdrop open={isLoading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : isError ? (
+        <Box
+          component={"div"}
+          sx={{
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            height: "100vh",
+          }}
+        >
+          <Typography color={"InfoText"}>Something Went wrong</Typography>
+        </Box>
       ) : (
         <div className="users">
           <DataTable slug="users" columns={columns} rows={userRows} />
