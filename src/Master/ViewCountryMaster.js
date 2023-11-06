@@ -1,5 +1,5 @@
 import DataTable from "layout/DataTable/DataTable";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 //import AllServices from "services/AllServices";
 
 const columns = [
@@ -57,40 +57,28 @@ const columns = [
 //     callingcode: "61",
 //   },
 // ];
-var countryLists=[
-    
-        {
-          "transid": "31247fbd-5096-41ad-931c-c5b485b2634c",
-          "countryname": "Malaysia",
-          "currency": "MYR",
-          "nationalityname": "Malaysian",
-          "callingcode": "61",
-          "rco": "",
-          "rcm": "2023-11-04T09:21:32.2391221",
-          "luo": "",
-          "lum": null,
-          "sts": 0,
-          "delstatus": 0
-        }
-      
-];
+var countryLists = [];
 //var service = new AllServices();
 const ViewCountryMaster = () => {
+  const [isLoading, setisLoding] = useState();
   useEffect(() => {
     console.log("fetching api");
+
     GetCountryList();
-  },[]);
+  }, []);
 
-  const GetCountryList = async() => {
-
-    const res =await fetch({
-        method:"Get",
-        url:"http://localhost:5012/api/Master/GetDetails"
-    })
-    const data= await res.json();
+  const GetCountryList = async () => {
+    setisLoding(true);
+    const response = await fetch(
+      "http://localhost:5012/api/Master/GetDetails",
+      { method: "Get" }
+    );
+    console.log(response);
+    const data = await response.json();
     console.log(data);
-    countryLists=data;
-    console.log(countryLists)
+    countryLists = data;
+    setisLoding(false);
+    console.log(countryLists);
     // service
     //   .ViewCountryList()
     //   .then((data) => {
@@ -102,12 +90,11 @@ const ViewCountryMaster = () => {
     //   });
   };
 
-  var countryList = [
-  ];
+  var countryList = [];
 
   countryLists.forEach((elements, index, array) => {
     var item = {};
-    item.id=index+1;
+    item.id = index + 1;
     item.countryname = elements.countryname;
     item.currency = elements.currency;
     item.nationalityname = elements.nationalityname;
@@ -117,9 +104,13 @@ const ViewCountryMaster = () => {
   const userRows = countryList;
   return (
     <>
-      <div className="users">
-        <DataTable slug="users" columns={columns} rows={userRows} />
-      </div>
+      {isLoading ? (
+        <div>Loding</div>
+      ) : (
+        <div className="users">
+          <DataTable slug="users" columns={columns} rows={userRows} />
+        </div>
+      )}
     </>
   );
 };
