@@ -9,12 +9,12 @@ const columns = [
   {
     field: "id",
     headerName: "Id",
-    width: 90,
+    minwiWidth: 90,
   },
   {
     field: "countryname",
     headerName: "CountryName",
-    width: 150,
+    minWidth: 150,
     type: "string",
   },
   //   {
@@ -29,19 +29,19 @@ const columns = [
     field: "currency",
     type: "string",
     headerName: "Currency",
-    width: 150,
+    minWidth: 150,
   },
   {
     field: "nationalityname",
     type: "string",
     headerName: "Nationality Name",
-    width: 150,
+    minWidth: 150,
   },
   {
     field: "callingcode",
     type: "string",
     headerName: "Calling Code",
-    width: 200,
+    minWidth: 200,
   },
   //   {
   //     field: "verified",
@@ -66,13 +66,13 @@ const ViewCountryMaster = () => {
     try {
       setisLoding(true);
       const response = await fetch(
-        "http://localhost:5012/api/Master/GetDetails",
+        "http://localhost:5012/api/Master/GetCountryDetails",
         { method: "Get" }
       );
       console.log(response);
       const data = await response.json();
       console.log(data);
-      countryLists = data;
+      countryLists = data.result;
       setisLoding(false);
       console.log(countryLists);
     } catch (error) {

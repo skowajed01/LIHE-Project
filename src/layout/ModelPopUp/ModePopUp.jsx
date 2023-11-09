@@ -10,9 +10,74 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import React from "react";
+import React, { memo } from "react";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
-const ModelPopUp = ({ isopen, setpopup }) => {
+const ModelPopUp = ({ isopen, setpopup, details }) => {
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm({
+    mode: "onTouched",
+    defaultValues: async () => {
+      console.log("inside defalut");
+      const response = await fetch(
+        `http://localhost:5012/api/Master/GetCountry/${details.transId}`,
+        { method: "Get" }
+      );
+      const data = await response.json();
+      console.log(data);
+      if (data.status == 400) {
+        return;
+      }
+      return data.result;
+    },
+  });
+  var data = details.data;
+  console.log(data);
+  console.log(details);
+  const onSubmit = async (values) => {
+    console.log(values);
+
+    const response = await fetch(
+      `http://localhost:5012/api/Master/UpdateCountrymast/${details.transId}`,
+      {
+        method: "Post",
+        body: JSON.stringify({
+          countryname: "dipu",
+          currency: "dipuan",
+          nationalityname: "didacda",
+          callingcode: "5456",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(response);
+    const data = await response.json();
+    console.log(data);
+
+    if (data.isSuccess) {
+      Swal({
+        title: "Updated",
+        text: `updated Successfully`,
+        icon: "success",
+      }).then((value) => {
+        // navigate("/Master/ViewCountryMaster");
+        window.location.reload(false);
+      });
+    }
+  };
+  // reset({
+  //   countryname: "dipu",
+  //   currency: "dipuan",
+  //   nationalityname: "didacda",
+  //   callingcode: "5456",
+  // });
   console.log("model popup");
   return (
     <Dialog
@@ -38,19 +103,55 @@ const ModelPopUp = ({ isopen, setpopup }) => {
           </IconButton>
         </Tooltip>
       </DialogTitle>
-      <DialogContent>
-        <Stack spacing={2} margin={2}>
-          <TextField variant="outlined" label="CountryName" />
-          <TextField variant="outlined" label="Currency" />
-          <TextField variant="outlined" label="Nationality Name" />
-          <TextField variant="outlined" label="Calling Code" />
-          <Button color="primary" variant="contained">
-            Submit
-          </Button>
-        </Stack>
-      </DialogContent>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <DialogContent>
+          <Stack spacing={2} margin={2}>
+            <TextField
+              variant="outlined"
+              label="CountryName"
+              {...register("countryname", {
+                required: "this field is requied",
+              })}
+              error={!!errors.countryname}
+              helperText={errors.countryname?.message}
+              name="countryname"
+            />
+            <TextField
+              variant="outlined"
+              label="Currency"
+              name="currency"
+              {...register("currency", { required: "this field is requied" })}
+              error={!!errors.currency}
+              helperText={errors.currency?.message}
+            />
+            <TextField
+              variant="outlined"
+              label="Nationality Name"
+              name="nationalityname"
+              {...register("nationalityname", {
+                required: "this field is requied",
+              })}
+              error={!!errors.nationalityname}
+              helperText={errors.nationalityname?.message}
+            />
+            <TextField
+              variant="outlined"
+              label="Calling Code"
+              name="callingcode"
+              {...register("callingcode", {
+                required: "this field is requied",
+              })}
+              error={errors.callingcode}
+              helperText={errors.callingcode?.message}
+            />
+            <Button color="primary" variant="contained" type="submit">
+              Submit
+            </Button>
+          </Stack>
+        </DialogContent>
+      </form>
     </Dialog>
   );
 };
 
-export default ModelPopUp;
+export default memo(ModelPopUp);

@@ -1,158 +1,131 @@
 import { Card } from "@mui/material";
-import React, { Component } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Swal from "sweetalert2";
+//import Swal from "sweetalert2";
 //import '../assets/scss/_themes-vars.module.scss'
 import "../assets/scss/master.scss";
 import AllServices from "services/AllServices";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
-const services = new AllServices();
+// const services = new AllServices();
 
-class CountryMaster extends Component {
-  constructor() {
-    super();
-    this.state = {
-      countryname: "",
-      currency: "",
-      nationalityname: "",
-      callingcode: "",
-    };
-    this.hdclick = this.hdclick.bind(this);
-  }
-  handlechange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value }, () => {
-      console.log(this.state);
-    });
-  };
+import React from "react";
+import swal from "sweetalert";
 
-  hdclick = () => {
-    if (
-      this.state.countryname === "" ||
-      this.state.currency === "" ||
-      this.state.nationalityname === "" ||
-      this.state.callingcode === ""
-    ) {
-      console.log("Enter All Fields");
-      Swal.fire({
-        icon: "error",
-        title: "Something Went Wrong",
-        type: "error",
-        text: "Please Check Again",
-      }).then((result) => {
-        window.location.reload();
+const CountryMaster = () => {
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+  });
+  console.log(errors);
+  const onSubmit = async (values) => {
+    console.log(values);
+    const response = await fetch(
+      `http://localhost:5012/api/Master/Countrymast`,
+      {
+        method: "Post",
+        body: JSON.stringify(values),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(response);
+    const data = await response.json();
+    console.log(data);
+
+    if (data.isSuccess) {
+      swal({
+        title: "Inserted",
+        text: `Inserted Successfully`,
+        icon: "success",
+      }).then((value) => {
+        // navigate("/Master/ViewCountryMaster");
+        window.location.reload(false);
       });
-      return;
     }
-    console.log("Data", this.state);
-    const data = {
-      countryname: this.state.countryname,
-      currency: this.state.currency,
-      nationalityname: this.state.nationalityname,
-      callingcode: this.state.callingcode,
-    };
-    services
-      .PostCountrymast(data)
-      .then((data) => {
-        console.log(data);
-        Swal.fire({
-          icon: "success",
-          title: "Country Added Successfully",
-          type: "success",
-          text: "Click Ok To Go The Page",
-        }).then((result) => {
-          window.location.reload();
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          title: "Wrong",
-          type: "error",
-          text: "Something Went Wrong",
-        }).then((result) => {
-          window.location.reload();
-        });
-      });
   };
 
-  render() {
-    let state = this.state;
-    return (
-      <>
-        <div>
-          {/* <a href="../Master/ViewCountryMaster" className="vwlist">
-            View List
-          </a> */}
-
-          <Link to="/Master/ViewCountryMaster">
-            <Button variant="contained">View List</Button>
-          </Link>
-        </div>
-        <Card sx={{ mt: 1 }}>
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 2, width: "56ch" },
-            }}
-            className="box"
-          >
+  return (
+    <>
+      <div>
+        <Link to="/Master/ViewCountryMaster">
+          <Button variant="contained">View List</Button>
+        </Link>
+      </div>
+      <Card sx={{ mt: 1 }}>
+        <Box
+          sx={{
+            "& .MuiTextField-root": { m: 2, width: "56ch" },
+          }}
+          className="box"
+        >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex-cnt">
               <TextField
-                value={state.countryname}
-                onChange={this.handlechange}
                 label="Country Name"
                 name="countryname"
                 size="small"
                 variant="standard"
+                {...register("countryname", {
+                  required: "this field is requied",
+                })}
+                error={!!errors.countryname}
+                helperText={errors.countryname?.message}
               />
 
               <TextField
-                value={state.currency}
-                onChange={this.handlechange}
                 label="Currency"
                 name="currency"
                 size="small"
                 variant="standard"
+                {...register("currency", { required: "this field is requied" })}
+                error={!!errors.currency}
+                helperText={errors.currency?.message}
               />
 
               <TextField
-                value={state.nationalityname}
-                onChange={this.handlechange}
                 label="Nationality"
                 name="nationalityname"
                 size="small"
                 variant="standard"
+                {...register("nationalityname", {
+                  required: "this field is requied",
+                })}
+                error={!!errors.nationalityname}
+                helperText={errors.nationalityname?.message}
               />
 
               <TextField
-                value={state.callingcode}
-                onChange={this.handlechange}
                 label="Calling Code"
                 name="callingcode"
                 size="small"
                 variant="standard"
+                {...register("callingcode", {
+                  required: "this field is requied",
+                })}
+                error={!!errors.callingcode}
+                helperText={errors.callingcode?.message}
               />
             </div>
             <div>
               <div className="flex-btn">
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={this.hdclick}
-                >
+                <Button variant="contained" color="success" type="submit">
                   Submit
                 </Button>
               </div>
             </div>
-          </Box>
-        </Card>
-      </>
-    );
-  }
-}
+          </form>
+        </Box>
+      </Card>
+    </>
+  );
+};
 
 export default CountryMaster;
