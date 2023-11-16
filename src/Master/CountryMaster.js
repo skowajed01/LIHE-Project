@@ -9,7 +9,7 @@ import AllServices from "services/AllServices";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-// const services = new AllServices();
+//const services = new AllServices();
 
 import React from "react";
 import swal from "sweetalert";
@@ -36,6 +36,7 @@ const CountryMaster = () => {
         },
       }
     );
+    // const response = services.PostCountrymast;
     console.log(response);
     const data = await response.json();
     console.log(data);
