@@ -43,9 +43,9 @@ const CountryMaster = () => {
 
     if (data.isSuccess) {
       swal({
-        title: "Inserted",
-        text: `Inserted Successfully`,
         icon: "success",
+        title: "Country Master Inserted Successfully",
+        text: `Now Click Ok`,
       }).then((value) => {
         // navigate("/Master/ViewCountryMaster");
         window.location.reload(false);
@@ -75,7 +75,7 @@ const CountryMaster = () => {
                 size="small"
                 variant="standard"
                 {...register("countryname", {
-                  required: "this field is requied",
+                  required: "Please enter the country name.",
                 })}
                 error={!!errors.countryname}
                 helperText={errors.countryname?.message}
@@ -86,7 +86,9 @@ const CountryMaster = () => {
                 name="currency"
                 size="small"
                 variant="standard"
-                {...register("currency", { required: "this field is requied" })}
+                {...register("currency", {
+                  required: "Please enter the currency.",
+                })}
                 error={!!errors.currency}
                 helperText={errors.currency?.message}
               />
@@ -97,7 +99,7 @@ const CountryMaster = () => {
                 size="small"
                 variant="standard"
                 {...register("nationalityname", {
-                  required: "this field is requied",
+                  required: "Please enter the nationality.",
                 })}
                 error={!!errors.nationalityname}
                 helperText={errors.nationalityname?.message}
@@ -109,7 +111,7 @@ const CountryMaster = () => {
                 size="small"
                 variant="standard"
                 {...register("callingcode", {
-                  required: "this field is requied",
+                  required: "Please enter the calling code.",
                 })}
                 error={!!errors.callingcode}
                 helperText={errors.callingcode?.message}

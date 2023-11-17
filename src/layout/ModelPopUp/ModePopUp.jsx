@@ -63,9 +63,9 @@ const ModelPopUp = ({ isopen, setpopup, details }) => {
 
     if (data.isSuccess) {
       Swal({
-        title: "Updated",
-        text: `updated Successfully`,
         icon: "success",
+        title: "Country Master Updated Successfully",
+        text: `Now Click Ok`,
       }).then((value) => {
         // navigate("/Master/ViewCountryMaster");
         window.location.reload(false);
@@ -110,7 +110,7 @@ const ModelPopUp = ({ isopen, setpopup, details }) => {
               variant="outlined"
               label="CountryName"
               {...register("countryname", {
-                required: "this field is requied",
+                required: "Please enter the country name.",
               })}
               error={!!errors.countryname}
               helperText={errors.countryname?.message}
@@ -120,7 +120,9 @@ const ModelPopUp = ({ isopen, setpopup, details }) => {
               variant="outlined"
               label="Currency"
               name="currency"
-              {...register("currency", { required: "this field is requied" })}
+              {...register("currency", {
+                required: "Please enter the currency.",
+              })}
               error={!!errors.currency}
               helperText={errors.currency?.message}
             />
@@ -129,7 +131,7 @@ const ModelPopUp = ({ isopen, setpopup, details }) => {
               label="Nationality Name"
               name="nationalityname"
               {...register("nationalityname", {
-                required: "this field is requied",
+                required: "Please enter the nationality.",
               })}
               error={!!errors.nationalityname}
               helperText={errors.nationalityname?.message}
@@ -139,7 +141,7 @@ const ModelPopUp = ({ isopen, setpopup, details }) => {
               label="Calling Code"
               name="callingcode"
               {...register("callingcode", {
-                required: "this field is requied",
+                required: "Please enter the calling code.",
               })}
               error={errors.callingcode}
               helperText={errors.callingcode?.message}
